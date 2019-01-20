@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_VodicLayout";
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script src="~/MyScript.js"></script>
+
+
+
+
+
+
+
+    <style>
+        #frame {
+            width: 100%;
+            height: 85vh;
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div id="frame">
+
+
+        <div id="recenzijeAjax">
+
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script>
+        $(document).ready(function () {
+
+            $.get("/modulvodic/recenzijev/PrikazPutovanjaRec", function (rezultat, status) {
+                $("#recenzijeAjax").html(rezultat);
+            });
+        });
+
+</script>
+
+

@@ -1,0 +1,113 @@
+﻿@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PutovanjeDodajVM
+@{
+    ViewData["Title"] = "Dodaj";
+    Layout = "_ZaposlenikLayout";
+}
+<style>
+    textarea {
+        min-width:100%;
+        max-width:100%;
+        min-height:10vh;
+        max-height:25vh;
+    }
+    form {
+        width:35%;
+        margin: 0 auto;
+    }
+        form table {
+            width:100%;
+            margin-top:10%;
+        }
+            form table td {
+                padding:1%;
+            }
+    #povecaj {
+        width:100%;
+    }
+</style>
+
+<center><h2>Evidencija novog putovanja</h2></center>
+<form enctype="multipart/form-data" asp-action="DodajAsync" asp-controller="Putovanje" method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label>Grad</label>
+                        <select id="" asp-for="gradId" asp-items="@Model.gradovi" class="form-control"></select>
+                        <span asp-validation-for="gradId" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Prevoz</label>
+                        <select asp-for="prevozId" asp-items="@Model.prevozi" class="form-control"></select>
+                        <span asp-validation-for="prevozId" class="text-danger"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    <div class="form-group">
+                        <label>Polazak</label>
+                        <input asp-for="datumPolaska" class="form-control" />
+                        <span asp-validation-for="datumPolaska" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Redovna cijena</label>
+                        <input asp-for="cijena" value="" class="form-control" />
+                        <span asp-validation-for="cijena" class="text-danger"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label>Planirani povratak</label>
+                        <input asp-for="datumPovratka" class="form-control" />
+                        <span asp-validation-for="datumPovratka" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Popust</label>
+                        <input asp-for="popust" type="text" class="form-control" />
+                        <span asp-validation-for="popust" class="text-danger"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Dodjeli ponudi</label>
+                        <select asp-for="ponudaId" asp-items="@Model.ponude" class="form-control"></select>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Dodaj fotografije</label>
+                        <label id="povecaj" class="btn btn-default">
+                            <input asp-for="slike" hidden />
+                        </label>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+
+    </table>
+    <div class="form-group">
+        <label>Opis putovanja</label>
+        <textarea asp-for="Opis" class="form-control"></textarea>
+        <span asp-validation-for="Opis" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Snimi" class="btn btn-success" />
+    @Html.ActionLink("Odustani", "Index", "Putovanje", null, new { @class = "btn btn-danger" })
+
+</form>

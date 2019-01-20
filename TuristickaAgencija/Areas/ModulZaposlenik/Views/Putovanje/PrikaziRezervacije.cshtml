@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "PrikaziRezervacije";
+    Layout = "_ZaposlenikLayout";
+    int brojac = 1;
+}
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PutovanjeRezervacijeVM
+
+@Html.ActionLink("Nazad", "Pregled", "Putovanje", new { putovanjeId = Model.putovanjeId }, new { @class = "btn btn-primary btn-sm" })
+@if (Model.datumPutovanja.Subtract(DateTime.Now).Days <= 3 && Model.datumPutovanja.Subtract(DateTime.Now).Days > 0)
+{
+    if (Model.rows.Count()>0)
+    {
+        @Html.ActionLink("Kreiraj grupe", "KreirajGrupe", "Putovanje", new { putovanjeId = Model.putovanjeId }, new { @class = "btn btn-info btn-sm" })
+    }
+}
+<table class="table table-hover" id="rezervacijeTable">
+    <thead>
+        <tr>
+            <th>RBr.</th>
+            <th>Turist</th>
+            <th>Spol</th>
+            <th>Datum rezervacije</th>
+            <th>Smještaj</th>
+            <th>Iznos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td>@(brojac++).</td>
+                <td>@x.imePrezime</td>
+                <td>@x.spol</td>
+                <td>@x.datum</td>
+                <td>@x.smjestaj</td>
+                <td>@x.ukupanIznos KM</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $("#rezervacijeTable").DataTable({
+            "pageLength": 15,
+            "bLengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+            },
+        });
+
+    });
+</script>

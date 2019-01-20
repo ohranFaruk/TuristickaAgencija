@@ -1,0 +1,227 @@
+﻿
+@{
+    ViewData["Title"] = "Pregled";
+    Layout = "_AdminLayout";
+    string nazivPromjeneStatusa = "";
+    if (Model.isAktivan)
+    {
+        nazivPromjeneStatusa = "Obriši";
+    }
+    else
+    {
+        nazivPromjeneStatusa = "Aktiviraj";
+    }
+}
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.ZaposlenikPregledVM
+    <style>
+
+        table{
+            width:100%;
+        }
+        td {
+            padding: 1%;
+        }
+
+        #info {
+            width: 37%;
+            float: left;
+        }
+        #info2 {
+            width: 30%;
+            float: left;
+            margin-left:1.5%;
+        }
+        .naziv {
+            width:40%;
+        }
+        #info3 {
+            width: 30%;
+            float: right;
+        }
+        #podaciZaposlenik {
+            width:100%;
+            height:40vh;
+        }
+    </style>
+
+@Html.ActionLink("Index", "Index", "Zaposlenik", new { area = "ModulAdministrator" }, new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("Uredi", "Uredi", "Zaposlenik", new { zaposlenikId = Model.zaposlenikId, area = "ModulAdministrator" }, new { @class = "btn btn-warning btn-sm" })
+@Html.ActionLink(nazivPromjeneStatusa, "PromjeniStatus", "Zaposlenik", new { zaposlenikId = Model.zaposlenikId, area = "ModulAdministrator" }, new { @class = "btn btn-danger btn-sm" })
+<button style="float:right; margin-top:0.3%;" id="myBtn" ajax-poziv="da" ajax-rezultat="myModal" ajax-url="/ModulAdministrator/Zaposlenik/ResetujSifruAsync?zaposlenikId=@Model.zaposlenikId" class="btn btn-info btn-sm">Resetuj lozinku</button>
+<hr />
+<div id="myModal" class="modal">
+
+</div>
+<div id="podaciZaposlenik">
+    <form>
+        <table id="info">
+            <tbody>
+                <tr>
+                    <td>
+                        <label>Ime i prezime:</label>
+                    </td>
+                    <td>
+                        @Model.imePrezime
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Datum rođenja:</label>
+                    </td>
+                    <td>
+                        @Model.datumRodjenja
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Starost:</label>
+                    </td>
+                    <td>
+                        @Model.starost
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>JMBG:</label>
+                    </td>
+                    <td>
+                        @Model.jmbg
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Spol:</label>
+                    </td>
+                    <td>
+                        @Model.spol
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Adresa: </label>
+                    </td>
+                    <td>
+                        @Model.adresa
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>E-mail:</label>
+                    </td>
+                    <td>
+                        <a href="mailto:@Model.email">@Model.email</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Telefon:</label>
+                    </td>
+                    <td>
+                        @Model.telefon
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="info2">
+            <tbody>
+                <tr>
+                    <td class="naziv">
+                        <label>Tip: </label>
+                    </td>
+                    <td>
+                        @Model.vrstaZaposlenika
+                    </td>
+                </tr>
+                <tr>
+                    <td class="naziv">
+                        <label>Datum zapošljavanja:</label>
+                    </td>
+                    <td>
+                        @Model.datumZaposljavanja
+                    </td>
+                </tr>
+                <tr>
+                    <td class="naziv">
+                        <label>Iskustvo:</label>
+                    </td>
+                    <td>
+                        @Model.iskustvo mjeseci
+                    </td>
+                </tr>
+                @if (Model.vrstaZaposlenika == "Vodič")
+                {
+                    <tr>
+                        <td class="naziv">
+                            <label>Stepen:</label>
+                        </td>
+                        <td>
+                            @Model.stepenVodica
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">
+                            <label><a href="/ModulAdministrator/Recenzije/IzlistajRecenzije?zaposlenikId=@Model.zaposlenikId">Ocjena:</a></label>
+                        </td>
+                        <td>
+                            @Model.prosjcnaOcjena
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table id="info3">
+            <tbody>
+                
+                <tr>
+                    <td class="naziv">
+                        <label>Korisničko ime:</label>
+                    </td>
+                    <td>
+                        @Model.korisnickoIme
+                    </td>
+                </tr>
+                <tr>
+                    <td class="naziv">
+                        <label>Datum registracije:</label>
+                    </td>
+                    <td>
+                        @Model.datumKreiranja
+                    </td>
+                </tr>
+                <tr>
+                    <td class="naziv">
+                        <label>Zadnja aktivnost:</label>
+                    </td>
+                    <td>
+                        @Model.datumZadnjePrijave
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div id="ajaxDiv">
+    <div id="govorniJezici" style="float:left; width:47.5%;">
+
+    </div>
+    <div id="posjedovaneLicence" style="float:left; width:47.5%; margin: 0 2.5%">
+
+    </div>
+
+</div>
+
+<script>
+
+     $(document).ready(function () {
+
+         $.get("/ModulAdministrator/Jezik/Index?zaposlenikId=@Model.zaposlenikId", function (rezultat, status) {
+             $("#govorniJezici").html(rezultat);
+         });
+
+         $.get("/ModulAdministrator/Licenca/Index?zaposlenikId=@Model.zaposlenikId", function (rezultat, status) {
+             $("#posjedovaneLicence").html(rezultat);
+         });
+
+     });
+
+</script>

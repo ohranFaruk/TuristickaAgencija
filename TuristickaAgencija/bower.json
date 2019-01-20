@@ -1,0 +1,8 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "bootstrap-datepicker": "v1.6.0",
+    "bootstrap-toggle": "2.2.2"
+  }
+}

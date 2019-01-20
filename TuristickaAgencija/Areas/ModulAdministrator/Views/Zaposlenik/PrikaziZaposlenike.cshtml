@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.ZaposlenikIndexVM
+@{
+    int brojac = 1;
+}
+<style>
+    td {
+        width: 22%;
+        background-color: rgb(243,243,244);
+    }
+
+    #rbr {
+        width: 5%;
+    }
+
+    #akcija {
+        width: 10%;
+    }
+</style>
+
+
+<table id="zaposlenici" class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                RBr
+            </th>
+            <th>
+                @Html.DisplayName("Zaposlenik")
+            </th>
+            <th>@Html.DisplayName("JMBG")</th>
+            <th>
+                @Html.DisplayName("Datum zapošljavanja")
+            </th>
+            <th>
+                @Html.DisplayName("Vodič")
+            </th>
+            <th>
+                Akcija
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td id="rbr">@(brojac++).</td>
+                <td>
+                    @x.imePrezime
+                </td>
+                <td>@x.jmbg</td>
+                <td>
+                    @x.datumZaposljavanja
+                </td>
+                <td>
+                    @if (x.isVodic)
+                    {
+                        <input type="checkbox" disabled checked />
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled />
+                    }
+                </td>
+                <td id="akcija">
+                    @Html.ActionLink("Detalji", "Pregled", "Zaposlenik", new { zaposlenikId = x.zaposlenikId, area = "ModulAdministrator" }, new { @class = "btn btn-primary btn-xs" })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+
+        $('#zaposlenici').DataTable({
+            "bLengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+            },
+        });
+    });
+</script>

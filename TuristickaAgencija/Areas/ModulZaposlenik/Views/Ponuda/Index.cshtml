@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_ZaposlenikLayout";
+}
+<style>
+    #frame {
+        width: 100%;
+        height: 85vh;
+    }
+
+    #pretraga {
+        width: 100%;
+        height: 10%;
+    }
+
+    #listPonude {
+        width: 100%;
+        height: 90%;
+    }
+
+    
+</style>
+<div id="frame">
+    <div id="pretraga">
+        <button ajax-poziv="da" ajax-rezultat="listPonude" ajax-url="/ModulZaposlenik/Ponuda/PrikaziPonude?aktivna=ne" class="btn btn-rounded btn-danger btn-sm">Neaktivne</button>
+        @Html.ActionLink("Prikaži sve", "Index", "Ponuda", null, new {@class= "btn btn-rounded btn-danger btn-sm" })
+    </div>
+    <div id="listPonude">
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $.get("/ModulZaposlenik/Ponuda/PrikaziPonude", function (rezultat, status) {
+            $("#listPonude").html(rezultat);
+        });
+    });
+
+</script>

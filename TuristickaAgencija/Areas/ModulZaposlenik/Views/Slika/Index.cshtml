@@ -1,0 +1,151 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.SlikaIndexVM
+
+<style>
+    #uploadSlike {
+        width: 35%;
+    }
+    #putovanjaTable_wrapper {
+        padding-bottom: 7px;
+    }
+
+    td {
+        background-color: rgb(243,243,244);
+    }
+    .divina {
+        width: 6vw;
+        height: 10vh;
+        padding-right:1%;
+        padding-top:1%;
+        position:relative;
+        z-index:5;
+    }
+        .divina img {
+            height:100%;
+            width:100%;
+            filter: brightness(0.6);
+        }
+        .divina:hover img {
+            filter: brightness(0.85);
+        }
+    .zatvori {
+        position: absolute;
+        top: 0;
+        right: 1%;
+        padding: 0.3%;
+        font-size: 2vh;
+        line-height: 2vh;
+        z-index: 10;
+    }
+        .zatvori button {
+            border:none;
+            background-color: transparent;
+            color: rgba(255,255,255,0.5);
+        }
+        .zatvori button:hover {
+            border: none;
+            background-color: transparent;
+            color: rgba(255,255,255,0.9);
+        }
+
+    #slikeDiv {
+        width: 90%;
+        height: 70vh;
+        margin: 0 auto;
+    }
+</style>
+
+@{
+
+    int brojacJ = 0;
+    int brojacJManje = 8;
+}
+<div id="slikeDiv">
+    <table id="putovanjaTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Math.Ceiling((double)Model.rows.Count / 8); i++)
+            {
+                if (i > 0)
+                {
+                    brojacJManje *= 2;
+                    brojacJ += 1;
+                }
+                <tr>
+                    @for (int j = brojacJ; j < brojacJManje; j++)
+                    {
+                        @if (j < Model.rows.Count)
+                        {
+                            <td style="padding: 0.05%; width: 10%">
+                                <div class="divina">
+                                    <img src="@Model.rows[j].imgsrc" />
+                                    <div class="zatvori">
+                                        <button title="Obriši" class="btn btn-xs btn-primary" AJAX-poziv="da" ajax-rezultat="podaci" ajax-url="/ModulZaposlenik/Slika/Obrisi?slikaId=@Model.rows[j].slikaId">&#10006;</button>
+                                    </div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="padding: 0.05%;"></td>
+                        }
+
+                        brojacJ = j;
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form asp-action="DodajAsync" asp-controller="Slika" method="post" enctype="multipart/form-data" class="form-inline">
+        <label id="uploadSlike" class="btn btn-default">
+            <input asp-for="putovanjeId" value="@Model.slikaPutovanjeId" hidden />
+            <input asp-for="smjestajId" value="@Model.slikaSmjestajId" hidden />
+            <input asp-for="slike" hidden />
+        </label>
+        <input type="submit" value="Snimi" class="btn btn-success btn-sm" />
+
+    </form>
+</div>
+<script>
+    
+    
+    $(document).ready(function () {
+        $("#putovanjaTable").DataTable(
+            {
+                "pageLength":2,
+                "bLengthChange": false,
+                "order": [[0, "Asc"]],
+                "order": false,
+                "filter": false,
+                "info": false
+            });
+        $("button[AJAX-poziv='da']").click(function (event) {
+            $(this).attr("AJAX-poziv", "dodan");
+
+            event.preventDefault();
+            var urlZaPoziv = $(this).attr("ajax-url");
+            var divZaRezultat = $(this).attr("ajax-rezultat");
+
+            $.get(urlZaPoziv, function (data, status) {
+                $("#" + divZaRezultat).html(data);
+            });
+        });    
+
+       
+    });
+ 
+</script>

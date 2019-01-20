@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+ 
+
+}
+@model TuristickaAgencija.Areas.ModulVodic.Models.ZahtjevDodaj
+<h2>Razlog odgode : </h2>
+
+
+<form action="/modulvodic/zahtjev/snimi" method="post">
+
+
+    <input type="hidden" value="@Model.zaduzenjeId" name="zaduzenjeId" />
+
+  <textarea value="@Model.razlog" name="razlog" style="width:25%; height:60%"></textarea>
+
+
+
+
+    <input type="submit" value="Pošalji" style="margin-left:-55px; margin-top:50px; position:absolute;" />
+
+</form>

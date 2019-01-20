@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Turisticka agencija</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap_index.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/ModalCss.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    
+    <style>
+        #naziv {
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong id="naziv">Mr. Gazda Glavni</strong>
+                            </span> <span class="text-muted text-xs block">Administrator</span>
+                        </span>
+
+                    </li>
+                    <li>
+                        <a href="/ModulAdministrator/AdminHome/Index"><span class="nav-label">Početna stranica</span></a>
+                    </li>
+                    <li>
+                        <a href="/ModulAdministrator/Zaposlenik/Index"><span class="nav-label">Zaposlenici</span></a>
+                    </li>
+                    <li>
+                        <a href="/ModulAdministrator/Recenzije/Index"><span class="nav-label">Recenzije </span></a>
+                    </li>
+                    <li>
+                        <a href="/ModulZaposlenik/Ponuda/Index"><span class="nav-label">Ponude</span></a>
+                    </li>
+                    <li>
+                        <a href="/ModulZaposlenik/Putovanje/Index"><span class="nav-label">Putovanja</span></a>
+                    </li>
+                    <li>
+                        <a href="/ModulZaposlenik/Smjestaj/Index"><span class="nav-label">Smještaji</span></a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        @Html.ActionLink("Odjava", "Odjava", "Login", null, new { @class = "fa fa-sign-out" })
+                        <!--<i class="fa fa-sign-out"></i> Log out-->
+                    </li>
+                    <li>
+                        <a class="right-sidebar-toggle">
+                            <i class="fa fa-tasks"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="~/MyScript.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+  
+</body>
+</html>

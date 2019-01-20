@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.JezikIndexVM
+@{ int brojac = 1;}
+<style>
+   
+    #jezici.dataTable tbody td {
+        padding: 0.3vh;
+        background-color: rgb(243,243,244);
+    }
+    #jezici_wrapper {
+        padding-bottom:10px;
+    }
+</style>
+
+<h3>Govorni jezici (@(Model.rows.Count))</h3>
+<table id="jezici" class="table table-hover table-sm" >
+    <thead >
+        <tr>
+            <th>RBr</th>
+            <th>Jezik</th>
+            <th>Stepen</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td>@(brojac++)</td>
+                <td>@x.nazivJezika</td>
+                <td>@x.stepen</td>
+                <td>
+                    <button class="btn btn-warning btn-xs" ajax-poziv="da" ajax-rezultat="govorniJezici" ajax-url="/ModulAdministrator/Jezik/Uredi?vodiciJezikId=@x.vodicJezikId">Uredi</button>
+                    <button class="btn btn-danger btn-xs" ajax-poziv="da" ajax-rezultat="govorniJezici" ajax-url="/ModulAdministrator/Jezik/Obrisi?vodiciJezikId=@x.vodicJezikId">Obriši</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="btn btn-success btn-sm" ajax-poziv="da" ajax-rezultat="govorniJezici" ajax-url="/ModulAdministrator/Jezik/Dodaj?zaposlenikId=@Model.zaposlenikId">Dodaj</button>
+<script>
+    $(document).ready(function () {
+
+        $("#jezici").dataTable({
+            "pageLength": 5,
+            "lengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+            },
+        });
+
+    });
+</script>

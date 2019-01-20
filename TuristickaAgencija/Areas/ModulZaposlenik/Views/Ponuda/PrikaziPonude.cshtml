@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+  
+    int brojac = 1;
+}
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PonudaIndexVM
+<style>
+    td {
+        background-color: rgb(243,243,244);
+    }
+</style>
+
+<table id="ponudaTable" class="table table-hover">
+    <thead>
+        <tr>
+            <th>RBr.</th>
+            <th>Naziv</th>
+            <th>Početak</th>
+            <th>Kraj</th>
+            <th>Br. putovanja</th>
+            <th>Zadnja izmjena</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td>@(brojac++).</td>
+                <td>@x.naziv</td>
+                <td>@x.pocetak</td>
+                <td>@x.zavrsetak</td>
+                <td>@x.brPutovanja</td>
+                <td>@x.zadnjaIzmjena</td>
+                <td>
+                    @Html.ActionLink("Uredi", "Uredi", "Ponuda", new { ponudaId = x.ponudaId, area = "ModulZaposlenik" }, new { @class = "btn btn-warning btn-xs" })
+                    @if (x.isAktivna)
+                    {
+                        @Html.ActionLink("Obriši", "PromjeniStatus", "Ponuda", new { ponudaId = x.ponudaId, area = "ModulZaposlenik" }, new { @class = "btn btn-danger btn-xs" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Aktiviraj", "PromjeniStatus", "Ponuda", new { ponudaId = x.ponudaId, area = "ModulZaposlenik" }, new { @class = "btn btn-danger btn-xs" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Dodaj", "Dodaj", "Ponuda", new { area = "ModulZaposlenik" }, new { @class = "btn btn-success" })
+
+<script>
+    $(document).ready(function () { 
+
+        $("#ponudaTable").DataTable({
+            "pageLength":10,
+            "bLengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+            },
+
+        });
+
+    });
+</script>

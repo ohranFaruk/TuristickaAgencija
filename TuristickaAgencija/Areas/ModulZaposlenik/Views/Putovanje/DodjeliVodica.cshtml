@@ -1,0 +1,22 @@
+﻿@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PutovanjeDodjeliVodicaVM
+@{
+    ViewData["Title"] = "DodjeliVodica";
+    Layout = "_ZaposlenikLayout";
+}
+<style>
+    form {
+        width:30%;
+        margin:10% auto;
+    }
+</style>
+<center><h3>Dodjela vodiča za grupu: </h3></center>
+<form asp-action="DodjeliVodica" asp-controller="Putovanje" method="post" class="form-inline">
+    <div class="form-group">
+        <input asp-for="grupaId" hidden />
+        <input asp-for="putovanjeId" hidden />
+        <select asp-for="vodicId" asp-items="Model.vodici" class="form-control"></select>
+        <span asp-validation-for="vodicId" class="text-danger"></span>
+        <input type="submit" value="Snimi" class="btn btn-success"/>
+        @Html.ActionLink("Odustani", "PrikaziRezervacije", "Putovanje", new {putovanjeId=Model.putovanjeId }, new {@class="btn btn-danger" })
+    </div>
+</form>

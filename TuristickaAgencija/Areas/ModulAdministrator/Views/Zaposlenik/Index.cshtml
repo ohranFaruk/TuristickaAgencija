@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+<style>
+    #main {
+            width:100%;
+            height:85vh;
+    }
+    #buttoni{
+        height:10%;
+    }
+    button {
+        margin-left: 0.2%;
+        margin-top:1%;
+    }
+</style>
+
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.ZaposlenikIndexVM
+
+<div id="main">
+    <div id="buttoni">
+        <button ajax-poziv="da" ajax-rezultat="listaZaposlenih" ajax-url="/ModulAdministrator/Zaposlenik/PrikaziZaposlenike?vodici=da" class="btn btn-rounded btn-danger btn-sm">Vodiči</button>
+        <button ajax-poziv="da" ajax-rezultat="listaZaposlenih" ajax-url="/ModulAdministrator/Zaposlenik/PrikaziZaposlenike?vodici=ne" class="btn btn-rounded btn-danger btn-sm">Osoblje</button>
+        <button ajax-poziv="da" ajax-rezultat="listaZaposlenih" ajax-url="/ModulAdministrator/Zaposlenik/PrikaziNeaktivne" class="btn btn-rounded btn-danger btn-sm">Neaktivni</button>
+        <button ajax-poziv="da" ajax-rezultat="listaZaposlenih" ajax-url="/ModulAdministrator/Zaposlenik/PrikaziZaposlenike" class="btn btn-rounded btn-danger btn-sm">Prikaži sve</button>
+    </div>
+    <div id="listaZaposlenih">
+
+    </div>
+    @Html.ActionLink("Dodaj", "Dodaj", "Zaposlenik", null, new { @class = "btn btn-success btn-sm" })
+</div>
+<script>
+
+    $.get("/ModulAdministrator/Zaposlenik/PrikaziZaposlenike", function (rezultat, status) {
+
+        $("#listaZaposlenih").html(rezultat);
+    });
+</script>
+

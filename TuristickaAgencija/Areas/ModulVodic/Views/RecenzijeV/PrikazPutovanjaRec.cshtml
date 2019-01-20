@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewData["Title"] = "PrikazPutovanjaRec";
+    int brojac = 1;
+
+
+}
+@model TuristickaAgencija.Areas.ModulVodic.Models.PrikazPutovanjaRecVM
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+  
+
+
+
+
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="~/MyScript.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <style>
+
+
+
+        td {
+            background-color: rgb(243,243,244);
+        }
+        .btn
+        {
+            margin-left:-2px;
+        }
+    </style>
+
+</head>
+<body>
+
+    
+    <h2>Prikaz završenih putovanja : </h2>
+    <br />
+
+
+    <table id="ponudaTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th>RBr.</th>
+                <th>Destinacija</th>
+                <th>Datum polaska</th>
+                <th>Datum povratka</th>
+                <th>Broj recenzija</th>
+                <th> &nbsp;  &nbsp;  &nbsp;   Recenzije </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var x in Model.redovi)
+            {
+                <tr>
+                    <td>@(brojac++).</td>
+                    <td>@x.nazivPutovanja</td>
+                    <td>@x.datumPolaska</td>
+                    <td>@x.datumPovratka</td>
+                    <td> &nbsp; &nbsp; &nbsp; @x.brojRecenzija</td>
+                    @if (x.brojRecenzija == 0)
+                    {
+                        /**/
+                        <td></td>
+                    }
+                    else
+                    {
+                        <td>
+
+                            @Html.ActionLink("Prikazi recenzije", "PrikazRecenzijaVIndex", "RecenzijeV", new { putovanjeId = x.putovanjeId, area = "ModulVodic" }, new { @class = "btn", id = "pregledRecenzijeV" })
+
+
+                        </td>
+
+                    }
+
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+

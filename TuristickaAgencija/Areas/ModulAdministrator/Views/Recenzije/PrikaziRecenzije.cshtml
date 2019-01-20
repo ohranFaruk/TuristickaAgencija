@@ -1,0 +1,119 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.RecenzijaIndexVM
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+
+
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="~/MyScript.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+<style>
+    td {
+        padding: 1%;
+        background-color: rgb(243,243,244);
+        border-bottom: 1px solid black;
+    }
+
+    #lijevi {
+        width: 55%;
+        float: left;
+        height: 100%;
+        border-right: 1px groove black;
+    }
+
+    #okvir {
+        width: 100%;
+        height: 100%;
+        background-color: aqua;
+    }
+
+    #lijevi #gornji {
+        padding-bottom: 1%;
+        width: 100%;
+        height: 20%;
+    }
+
+    #lijevi #donji span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 40vh;
+        display: inline-block;
+    }
+
+    #desni {
+        padding: 1%;
+        height: 100%;
+        width: 43%;
+        float: right;
+    }
+
+    #pregledRecenzije {
+        width: auto;
+        float: right;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+<table id="recenzije">
+    <thead>
+        <tr>
+            <th>
+                Prikaz recenzija
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.divs)
+        {
+            <tr>
+                <td>
+                    <div id="okvir">
+                        <div id="lijevi">
+                            <div id="gornji">
+                                <span><b>@x.turist</b></span>
+                            </div>
+                            <div class="d-inline-block text-truncate" id="donji">
+                                <span><i><q>@x.komentar</q></i></span>
+                            </div>
+                        </div>
+                        <div id="desni">
+                            <div><b>Datum: </b> <i>@x.datumRecenzije</i></div>
+                            <div><b>Ocjena: </b> <i>@x.ocjena</i></div>
+                            @Html.ActionLink("Pregled", "Pregled", "Recenzije", new { recenzijaId = x.recenzijaId, area = "ModulAdministrator" }, new { @class = "btn-block btn-warning btn-xs", id = "pregledRecenzije" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#recenzije").dataTable({
+
+            "pageLength": 5,
+            "lengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+            },
+        });
+    });
+</script>

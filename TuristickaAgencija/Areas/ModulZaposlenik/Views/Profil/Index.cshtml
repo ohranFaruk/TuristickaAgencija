@@ -1,0 +1,87 @@
+﻿@model TuristickaAgencija.Areas.ModulZaposlenik.Models.ProfilIndexVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_ZaposlenikLayout";
+
+    string porukaUspjeh = (string)TempData["IzmjenaProfila_Uspjeh"];
+
+
+
+}
+<style>
+    #mainContent {
+        width:100%;
+        height:90vh;
+        padding:2%;
+    }
+    #info {
+        padding:2% 1%;;
+        width:50%;
+        margin:0 auto;
+        height:100%;
+    }
+   
+    .naziv,caption {
+        font-family: "Arial Black", Gadget, sans-serif;
+        color: rgb(47,64,80);
+    }
+</style>
+
+<div id="mainContent">
+    <div id="info">
+        <table class="table">
+            <caption>
+                <center>PROFILNI PODACI</center>
+            </caption>
+            <tbody>
+                <tr>
+                    <td class="naziv">Ime i prezime:</td>
+                    <td>@Model.imePrezime</td>
+                </tr>
+                <tr>
+                    <td class="naziv">Datum rođenja:</td>
+                    <td>@Model.datumRodjenja</td>
+                </tr>
+                <tr>
+                    <td class="naziv">Spol:</td>
+                    <td>@Model.spol</td>
+                </tr>
+                <tr>
+                    <td class="naziv">Adresa:</td>
+                    <td>@Model.adresa</td>
+                </tr>
+                <tr>
+                    <td class="naziv">E-mail:</td>
+                    <td>@Model.email</td>
+                </tr>
+                <tr>
+                    <td class="naziv">Telefon:</td>
+                    <td>@Model.telefon</td>
+                </tr>
+                <tr>
+                    <td class="naziv">Zaposlen kao:</td>
+                    <td>@Model.vrstaZaposlenika</td>
+                </tr>
+                <tr>
+                    <td class="naziv">Korisničko ime:</td>
+                    <td>@Model.korisnickoIme</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.ActionLink("Izmjena lozinke", "Uredi", "Profil", new { zaposlenikId = Model.zaposlenikId, area = "ModulZaposlenik" }, new { @class = "btn btn-warning btn-sm" })
+                    </td>
+                </tr>
+                @if (porukaUspjeh != null)
+                 { 
+                <tr>
+                    <td class="alert alert-success">
+                        <span>@porukaUspjeh</span>
+                    </td>
+                </tr>
+                 }
+            </tbody>
+        </table>
+    </div>
+        
+</div>
+

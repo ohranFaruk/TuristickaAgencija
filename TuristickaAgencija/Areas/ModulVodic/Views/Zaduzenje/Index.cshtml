@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_VodicLayout";
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script src="~/MyScript.js"></script>
+
+    <style>
+        #frame {
+            width: 100%;
+            height: 85vh;
+        }
+
+       
+
+        #listPonude {
+            width: 100%;
+            height: 90%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Prikaz zaduženja</h2>
+
+    <div id="frame">
+
+
+        <div id="zaduzenjaAjax">
+
+        </div>
+    </div>
+</body>
+</html>
+   
+
+    <script>
+        $(document).ready(function () {
+          
+            $.get("/modulvodic/zaduzenje/prikazZaduzenja", function (rezultat, status) {
+                $("#zaduzenjaAjax").html(rezultat);
+            });
+        });
+
+    </script>

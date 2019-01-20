@@ -1,0 +1,88 @@
+﻿@using TuristickaAgencija.Helpers
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.SmjestajUrediVM
+@{
+    ViewData["Title"] = "Dodaj";
+    Layout = "_ZaposlenikLayout";
+}
+<style>
+    textarea {
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 10vh;
+        max-height: 25vh;
+    }
+
+    form {
+        width: 35%;
+        margin: 0 auto;
+    }
+
+        form table {
+            width: 100%;
+            margin-top: 10%;
+        }
+
+            form table td {
+                padding: 1%;
+                width: 60%;
+            }
+
+    #povecaj {
+        width: 100%;
+    }
+</style>
+
+<center><h2>Ažuriranje smještaja</h2></center>
+<form asp-action="Uredi" asp-controller="Smjestaj" method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label>Naziv hotela:</label>
+                        <input asp-for="smjestajId" hidden />
+                        <input asp-for="NazivHotela" class="form-control" />
+                        <span asp-validation-for="NazivHotela" class="text-danger"></span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Broj zvjezdica</label>
+                        <select asp-for="brZvjezdica" asp-items="@Model.zvjezdice" class="form-control"></select>
+                        <span asp-validation-for="brZvjezdica" class="text-danger"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label>Grad</label>
+                        <input asp-for="grad" disabled class="form-control" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label>Cijena</label>
+                        <input asp-for="stdCijena" class="form-control" />
+                        <span asp-validation-for="stdCijena" class="text-danger"></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label>Web stranica</label>
+                        <input asp-for="webStranica" class="form-control" />
+                        <span asp-validation-for="webStranica" class="text-danger"></span>
+                    </div>
+                </td>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label>Opis smještaja</label>
+        <textarea asp-for="opis" class="form-control"></textarea>
+        <span asp-validation-for="opis" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Snimi" class="btn btn-success" />
+    @Html.ActionLink("Odustani", "Pregled", "Smjestaj", new { smjestajId = Model.smjestajId }, new { @class = "btn btn-danger" })
+</form>

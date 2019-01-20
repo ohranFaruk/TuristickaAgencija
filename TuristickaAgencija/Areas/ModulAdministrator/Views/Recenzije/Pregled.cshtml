@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewData["Title"] = "Pregled";
+    Layout = "_AdminLayout";
+}
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.RecenzijaIndexVM.Div
+
+<style>
+    #glavni {
+        width: 80%;
+        height: 65vh;
+        font-size: 1.6vh;
+        margin: 1% auto;
+    }
+    #zaglavlje {
+        width: 100%;
+        height: 10%;
+        border-bottom: 1px groove black;
+    }
+    #zLijevi {
+        width: 50%;
+        height: 100%;
+        float: left;
+        padding-top: 0.3%;
+        text-align:left;
+        font-size: 4vh;
+        font-family: "Arial Black", Gadget, sans-serif;
+        padding-left: 1%;
+    }
+        #zLijevi img {
+            width:10%;
+            height:100%;
+            margin: 0 auto;
+        
+        }
+    #zDesni {
+        width: 50%;
+        height: 100%;
+        text-align: right;
+        float: right;
+        padding-right: 1%;
+        padding-top: 0.3%;
+        font-size: 4vh;
+        font-family: "Arial Black", Gadget, sans-serif;
+        border-left: 1px solid lightgrey;
+    }
+        #zDesni img {
+            width: 10%;
+            height: 100%;
+            margin-bottom:2%;
+        }
+
+    #gornji {
+        width: 100%;
+        height: 50%;
+    }
+
+        #gornji #ocjena {
+            width: 30%;
+            height: 100%;
+            float: left;
+            font-size: 34vh;
+            line-height: 100%;
+            text-align: center;
+            font-family: "Arial Black", Gadget, sans-serif;
+            border-right: 1px groove black;
+            background-color: rgb(103,106,108);
+            color: rgb(243,243,244);
+        }
+
+        #gornji #komentar {
+            width: 70%;
+            height: 100%;
+            float: right;
+            padding: 1%;
+            overflow-y: auto;
+            font-size: 1vw;
+        }
+
+    #donji {
+        border-top: 1px solid lightgrey;
+        height: 50%;
+        width: 100%;
+    }
+    #dLeft {
+        border-right: 1px groove black;
+        height: 100%;
+        width: 40%;
+        float: left;
+        font-size: 3vh;
+        text-align: center;
+        font-family: "Arial Black", Gadget, sans-serif;
+    }
+        #dLeft img {
+            width:45%;
+            height:65%;
+            margin: 5% auto;
+            display:block;
+        }
+    #dRight {
+        height: 100%;
+        width: 60%;
+        float: right;
+
+    }
+    #drDown {
+        width: 100%;
+        height: 50%;
+        border-top: 1px solid lightgrey;
+        font-family: "Arial Black", Gadget, sans-serif;
+        font-size: 6vh;
+
+    }
+        #drDown img {
+            height: 75%;
+            width: 10%;
+            margin: 3% 2%;
+        }
+    #drUp {
+        width: 100%;
+        height: 50%;
+        font-family: "Arial Black", Gadget, sans-serif;
+        font-size: 6vh;
+    }
+        #drUp img {
+            width: 15%;
+            height: 75%;
+            margin: 3% auto;
+        }
+
+</style>
+
+@Html.ActionLink("Nazad", "Index", "Recenzije", new {area="ModulAdministrator" }, new {@class="btn btn-primary" })
+<div id="glavni">
+    <div id="zaglavlje">
+        <div id="zLijevi">
+            <img src="~/images/tourist.png" />
+            <i>@Model.turist</i>
+        </div>
+        <div id="zDesni">
+            <i>@Model.datumRecenzije</i>
+            <img src="~/images/calendar.png" />
+        </div>
+    </div>
+    <div id="gornji">
+        <div id="ocjena">
+            @Model.ocjena
+    </div>
+        <div id="komentar">
+            <q><i>@Model.komentar </i></q>
+        </div>
+    </div>
+    <div id="donji">
+        <div id="dLeft">
+            <img src="~/images/earth.png" />
+            <i>@Model.lokacija</i>
+        </div>
+        <div id="dRight">
+            <div id="drUp">
+                <img src="~/images/hotel.png" />
+                <i>@Model.smjestaj</i>
+            </div>
+            <div id="drDown">
+                <img src="~/images/guide.png" />
+                <i>@Model.vodic</i>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+@*<form>
+    <div class="form-group">
+        <label class="control-label">Turist: </label>
+        <input asp-for="turist" />
+    </div>
+    <div class="form-group">
+        <label>Datum komentara: </label>
+        <input asp-for="datumRecenzije" />
+    </div>
+    <div class="form-group">
+        <label>Putovanje: </label>
+        <input asp-for="lokacija" />
+    </div>
+    <div class="form-group">
+        <label>Smještaj: </label>
+        <input asp-for="smjestaj" />
+    </div>
+
+    <div class="form-group">
+        <label>Vodic: </label>
+        <input asp-for="vodic" />
+    </div>
+    <div class="form-group">
+        <label>Komentar: </label>
+        <input asp-for="komentar" />
+    </div>
+    <div class="form-group">
+        <label>Ocjena: </label>
+        <input asp-for="ocjena" />
+    </div>
+</form>*@
+
+
+

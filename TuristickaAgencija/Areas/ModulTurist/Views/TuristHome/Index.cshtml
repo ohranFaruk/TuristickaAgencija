@@ -1,0 +1,257 @@
+﻿@using TuristickaAgencijaData
+@using TuristickaAgencija.Data.Models
+@using TuristickaAgencija.Helpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+
+    string url = "/modulturist/turisthome/index";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>WT Travel agency</title>
+
+
+
+  
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/lib/bootstrap/dist/css/modern-business.css" rel="stylesheet">
+
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+
+
+    <style>
+        .gornji {
+            background-color: #198fe8;
+            color: white;
+        }
+
+        .formica {
+            width: 182px;
+        }
+
+        input {
+            height: 30px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+           
+            <p class="navbar-brand" style="height:12px">WT Travel agency</p>
+            <div id="formica">
+                <form action="/modulturist/putovanjetur/pretraga" method="post">
+
+                    <input type="text" name="ime"style="width:200px; margin-left:20px" placeholder="Pretraži" />
+
+                </form>
+            </div>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+
+
+                    @if (korisnik == null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulTurist/TuristHome/Registracija">Registracija</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/controllers/login/loginpage?url=@url">Login</a>
+                </li>
+
+}
+
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ModulTurist/PonudaTur/Prikaz">Ponude</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ModulTurist/PutovanjeTur/PrikazBezPonuda">Putovanja</a>
+                    </li>
+                    @if (korisnik == null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/modulturist/turisthome/prijava">Završena putovanja</a>
+                </li>
+}
+
+
+                    @if (korisnik != null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulTurist/Rezervacija/PrikazRezervacija?korisnikId=@korisnik.KorisnikId">Rezervacije</a>
+                </li>
+
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/controllers/login/odjava?url=@url">Odjava</a>
+                </li>
+
+
+
+}
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active" style="background-image: url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-413575.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Majorka </h3>
+                        <p>Već od 399 KM</p>
+                    </div>
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-113727.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Istanbul</h3>
+                        <p>Već od 299 KM </p>
+                    </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-120058.jpg')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Hawaii</h3>
+                        <p>Već od 799 KM </p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
+    <!-- Page Content -->
+    <div class="container">
+        <h1 class="my-4">Dobrodošli ! </h1>
+        <!-- Marketing Icons Section -->
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <h4 class="card-header">Putujte na najljepše plaže </h4>
+                    <div class="card-body">
+                        <p class="card-text">Otkrijte naše ponude i uživajte na najljepšim plažama Turske, Španije, Filipinima  i u cijelom svijetu. </p>
+                    </div>
+                    <div class="card-footer">
+                        @*<a href="#" class="btn btn-primary">Learn More</a>*@
+                      
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <h4 class="card-header">Uživajte čitavu godinu </h4>
+                    <div class="card-body">
+                        <p class="card-text">Sa WT putujete u svakom godišnjem dobu na najljepša mjesta u najbolje hotele.</p>
+                    </div>
+                    <div class="card-footer">
+                        @*<a href="#" class="btn btn-primary">Learn More</a>*@
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <h4 class="card-header">WT za svačiji džep</h4>
+                    <div class="card-body">
+                        <p class="card-text">Iskoristite naše ponude koje nude putovanja po neponovljivim cijenama</p>
+                    </div>
+                    <div class="card-footer">
+                        <br />
+                        @*<a href="#" class="btn btn-primary">Learn More</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+       
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Kontaktirajte nas </h2>
+               
+                <ul>
+                    
+                    <li>E-mail adresa: www.wttravelagency.com</li>
+                    <li>Broj telefona : 033-254-567</li>
+                    <li>Adresa: Maršala Tita 25 Sarajevo</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <img class="img-fluid rounded" src="~/images/wt2.jpg" alt="">
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+        <!-- Call to Action Section -->
+        
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; World Tour 2018</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.js"></script>
+</body>
+
+</html>

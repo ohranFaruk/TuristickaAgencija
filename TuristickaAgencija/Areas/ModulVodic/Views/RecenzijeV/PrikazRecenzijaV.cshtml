@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "PrikazRecenzijaV";
+    int brojac = 1;
+
+}
+@model TuristickaAgencija.Areas.ModulVodic.Models.PrikazRecenzijaVVM
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+
+
+
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="~/MyScript.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+    <style>
+
+        td {
+            background-color: rgb(243,243,244);
+        }
+       
+
+    </style>
+</head>
+<body>
+
+
+    <div style="margin-top:12px;">
+        @Html.ActionLink("Nazad", "index", "RecenzijeV", new { area = "ModulVodic" }, new { @class = "btn btn-primary" })
+    </div>
+    <h2>Prikaz recenzija</h2>
+    <table id="ponudaTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th>RBr.</th>
+                <th>Ime turiste</th>
+                <th>Prezime turiste</th>
+                <th>Datum recenzije</th>
+
+                <th> Ocjena</th>
+                <th> &nbsp; &nbsp;&nbsp; Komentar </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var x in Model.redovi)
+            {
+                <tr>
+                    <td>@(brojac++).</td>
+                    <td>@x.imeTurista</td>
+                    <td>@x.prezimeTurista</td>
+                    <td>@x.datumRecenzije</td>
+
+                    <td>&nbsp;&nbsp; @x.ocjena</td>
+                    <td> @Html.ActionLink("Prikaži komentar", "Komentar", "RecenzijeV", new { recenzijaId = x.recenzijaId, area = "ModulVodic" }, new { @class = "btn", id = "pregledRecenzije" })</td>
+
+
+
+
+
+                </tr>
+
+            }
+        </tbody>
+
+
+    </table>
+
+
+</body>
+</html>
+

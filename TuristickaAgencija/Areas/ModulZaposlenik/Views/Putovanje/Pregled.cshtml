@@ -1,0 +1,197 @@
+﻿@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PutovanjePregledVM
+@{
+    ViewData["Title"] = "Pregled";
+    Layout = "_ZaposlenikLayout";
+    string nazivPromjeneStatusa = "";
+    if (Model.isAktivno)
+    {
+        nazivPromjeneStatusa = "Obriši";
+    }
+    else
+    {
+        nazivPromjeneStatusa = "Aktiviraj";
+    }
+}
+<style>
+    #pregled {
+        width:100%;
+        height:90vh;
+    }
+    #left {
+        width: 65%;
+        float:left;
+        height: 95%;
+    }
+        #left #cover {
+            width: 100%;
+            height: 55%;
+            position:relative;
+            padding-right:2%;
+        }
+            #left #cover img {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
+            #left #cover #lokacijaTrajanje {
+                width: 98%;
+                height: 20%;
+                position: absolute;
+                z-index: 3;
+                bottom: 0%;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                font-family: "Arial Black", Gadget, sans-serif;
+                font-size: 3vh;
+                color: white;
+                background-color: rgba(47,64,80,0.7);
+                line-height: 8vh;
+                padding:1%;
+            }
+    #lokacija {
+        padding-left: 2%;
+        width: 75%;
+        float:left;
+        height: 100%;
+    }
+    #trajanje {
+        width:25%;
+        height:100%;
+        float:left;
+        border-left:0.3px solid grey;
+        padding-left:3.5%;
+        font-size:7vh;
+    }
+        #trajanje span {
+            font-size:2.5vh;
+        }
+        #left #ostalo {
+            margin-top:1%;
+            width: 98%;
+            float:left;
+            height: 45%;
+        }
+    #right {
+        width: 35%;
+        height: 95%;
+        float: right;
+        border-left: 0.5px solid lightgrey;
+    }
+    table {
+        width: 75%;
+        font-family: "Arial Black", Gadget, sans-serif;
+        color: rgb(47,64,80);
+        margin:0 auto;
+        font-size:2vh;
+    }
+    td {
+        padding: 1% 3%;
+        width:35%;
+    }
+    table span {
+        font-family: 'Times New Roman'
+    }
+    .naziv {
+        width:45%;
+    }
+    caption {
+        text-align:center;
+    }
+    #bar {
+        width:100%;
+        height:5%;
+    }
+  
+</style>
+<div id="pregled">
+    <div id="bar">
+        @Html.ActionLink("Index", "Index", "Putovanje", new { area = "ModulZaposlenik" }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Uredi", "Uredi", "Putovanje", new { area = "ModulZaposlenik", putovanjeId = Model.putovanjeId }, new { @class = "btn btn-warning" })
+        @Html.ActionLink(nazivPromjeneStatusa, "PromjeniStatus", "Putovanje", new { area = "ModulZaposlenik", putovanjeId = Model.putovanjeId }, new { @class = "btn btn-danger" })
+        
+        @if (Model.isUProcesuRezervacije && !Model.isKreiraneGrupe)
+        {
+            @Html.ActionLink("Rezervacije", "PrikaziRezervacije", "Putovanje", new { area = "ModulZaposlenik", putovanjeId = Model.putovanjeId }, new { @class = "btn btn-info" })
+        }
+        else if (Model.isKreiraneGrupe)
+        { 
+            @Html.ActionLink("Pregled grupa", "PregledGrupa", "Putovanje", new { area = "ModulZaposlenik", putovanjeId = Model.putovanjeId }, new { @class = "btn btn-info" })
+
+        }
+    </div>
+    <div id="left">
+        <div id="cover">
+            <img src="@Model.cover" alt="Greška prilikom učitavanja slike" />
+            <div id="lokacijaTrajanje">
+                <div id="lokacija">@Model.lokacija</div>
+                <div id="trajanje">@Model.trajanje<span> dana</span></div>
+            </div>
+        </div>
+        ¸<div id="ostalo">
+             <div id="meni">
+                 <button class="btn btn-xs btn-primary" ajax-poziv="da" ajax-rezultat="podaci" ajax-url="/ModulZaposlenik/Slika/Index?putovanjeId=@Model.putovanjeId">Galerija</button>
+                 <button class="btn btn-xs btn-primary" ajax-poziv="da" ajax-rezultat="podaci" ajax-url="/ModulZaposlenik/Smjestaj/PrikaziSmjestajPutovanje?putovanjeId=@Model.putovanjeId">Smještaji</button>
+             </div>
+            <div id="podaci">
+
+            </div>
+        </div>
+    </div>
+    <div id="right">
+        <form>
+            <table>
+                <caption>INFORMACIJE</caption>
+                <tbody>
+                    <tr>
+                        <td class="naziv">Datum izmjene:</td>
+                        <td><span>@Model.datumIzmjene</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Ponuda:</td>
+                        <td><span>@Model.ponuda</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Polazak:</td>
+                        <td><span>@Model.datumPolaska</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Planirani povratak:</td>
+                        <td><span>@Model.datumPovratka</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Prevoz:</td>
+                        <td><span>@Model.prevoz</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Redovna cijena:</td>
+                        <td><span>@Model.redovnaCijena</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Popust:</td>
+                        <td><span>@Model.popust</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv">Cijena s popustom:</td>
+                        <td><span>@Model.cijenaSPopustom</span></td>
+                    </tr>
+                    <tr>
+                        <td class="naziv" colspan="2">Opis:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><span>@Model.opis</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+
+    $.get("/ModulZaposlenik/Slika/Index?putovanjeId=@Model.putovanjeId", function (rezultat, status) {
+        $("#podaci").html(rezultat);
+    });
+
+</script>
+
+

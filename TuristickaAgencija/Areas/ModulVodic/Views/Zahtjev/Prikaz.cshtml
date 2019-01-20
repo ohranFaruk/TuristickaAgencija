@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewData["Title"] = "Prikaz";
+    Layout = "_vodiclayout";
+    int brojac = 1;
+}
+@model TuristickaAgencija.Areas.ModulVodic.Models.ZahtjevPrikaz
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+    <style>
+     
+        td {
+            background-color: rgb(243,243,244);
+        }
+   
+
+      
+    </style>
+</head>
+
+<body>
+
+    <h2>Prikaz zahtjeva: </h2>
+    <br />
+
+
+    <table id="ponudaTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th>RBr.</th>
+                <th>Destinacija</th>
+                <th>Datum slanja zahtjeva</th>
+                <th>Razlog</th>
+                <th>Potvrdjen</th>
+                <th>Datum potvrde</th>
+               
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var x in Model.redovi)
+            {
+                <tr>
+                    <td>@(brojac++).</td>
+                    <td>@x.putovanje</td>
+                    <td>@x.datumKreiranja</td>
+                    <td>@x.razlog</td>
+                    @if (x.potvrdjen)
+                    {
+                        <td>Da</td>
+                        <td>@x.datumPotvrde</td>
+                        
+                    }
+                    else
+                    {
+                        <td>Ne</td>
+                        <td></td>
+                    }
+
+
+
+                </tr>
+
+            }
+        </tbody>
+
+
+    </table>
+
+
+
+
+</body>
+
+</html>
+
+
+@*<script>
+    $(document).ready(function () {
+        $("#zahtjevi").dataTable({
+
+            "pageLength": 5,
+            "lengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+            },
+        });
+    });
+</script>*@

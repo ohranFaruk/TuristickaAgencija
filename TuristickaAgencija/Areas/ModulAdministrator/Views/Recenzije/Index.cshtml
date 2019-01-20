@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+}
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.RecenzijaPretragaVM
+<style>
+    #listaRecenzija {
+        width: 50%;
+        height:75vh;
+        margin: 5% auto;
+        padding: 0 1%;
+        border-left: 1px groove rgba(172, 164, 164,0.5);
+        border-right: 1px groove black;
+    }
+</style>
+
+<h2>Recenzije</h2>
+
+    <form ajax-poziv="da" ajax-rezultat="listaRecenzija" action="/ModulAdministrator/Recenzije/PrikaziRecenzije" style="width:60%">
+        <div class="form-group">
+            <select class="form-control input-sm selectPretraga" asp-for="vodicId" asp-items="@Model.vodici" style="border-radius:10px; float:left; margin-right:1%; width:25%; display:inline" ></select>
+            <select class="form-control input-sm selectPretraga" asp-for="putovanjeId" asp-items="@Model.putovanja" style="border-radius:10px; float:left; margin-right:1%; width:30%; display:inline" ></select>
+
+            <input type="submit" value="Traži" style="float:left; margin-right:1%" class="btn btn-rounded btn-info btn-sm" />
+            <button style="float:left;" ajax-poziv="da" ajax-rezultat="listaRecenzija" ajax-url="/ModulAdministrator/Recenzije/PrikaziRecenzije" class="btn btn-rounded btn-danger btn-sm prikaziSve">Prikaži sve</button>
+        </div>
+    </form>
+
+    
+    <div id="listaRecenzija">
+    
+    </div>
+
+<script>
+
+    $.get("/ModulAdministrator/Recenzije/PrikaziRecenzije", function (rezultat, status) {
+
+        $("#listaRecenzija").html(rezultat);
+    });
+</script>

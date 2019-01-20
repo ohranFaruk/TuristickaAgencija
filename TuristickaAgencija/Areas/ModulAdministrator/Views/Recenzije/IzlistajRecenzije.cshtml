@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+    int vodicId = (int)TempData["vodicId"];
+}
+<style>
+    #listaRecenzija {
+        width: 50%;
+        margin: 1% auto;
+        padding: 0 1%;
+        border-left: 1px groove rgba(172, 164, 164,0.5);
+        border-right: 1px groove black;
+    }
+</style>
+
+<h2>Recenzije</h2>
+@Html.ActionLink("Nazad", "Pregled", "Zaposlenik", new { zaposlenikId = vodicId, area="ModulAdministrator" }, new {@class="btn btn-primary" })
+    
+    <div id="listaRecenzija">
+    
+    </div>
+
+<script>
+
+    $.get("/ModulAdministrator/Recenzije/PrikaziRecenzije?vodicId=@vodicId&putovanjeId=@null", function (rezultat, status) {
+
+        $("#listaRecenzija").html(rezultat);
+    });
+</script>

@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_VodicLayout";
+}
+@model TuristickaAgencija.Areas.ModulVodic.Models.VodicHomeIndexVM
+
+<style>
+    input[type=number] {
+        width: 4%;
+        padding: 0.7%;
+        margin: 12px 0;
+        box-sizing: border-box;
+        border: none;
+        background-color: #3CBC8D;
+        color: white;
+        border-radius:6px;
+        font-size:125%;
+        text-align:center;
+        margin-left:2%;
+       
+       
+    }
+    label {
+        font-size: 19px;
+        display: inline-block;
+    }
+</style>
+<h2>@Model.ime</h2>
+
+<br />
+<label>Zaduženja: </label>
+
+    <input type="number" readonly value="@Model.zaduzenja"  /><br />
+
+
+    <label>Zahtjevi:  &nbsp; &nbsp; </label> <input type="number" readonly value="@Model.zahtjevi" />

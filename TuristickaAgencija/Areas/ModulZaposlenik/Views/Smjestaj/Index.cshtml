@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_ZaposlenikLayout";
+}
+
+<style>
+    #frame {
+        width: 100%;
+        height: 85vh;
+    }
+
+    #pretraga {
+        width: 100%;
+        height: 10%;
+    }
+
+    #listSmjestaji {
+        width: 100%;
+        height: 90%;
+    }
+
+</style>
+
+<div id="frame">
+    <div id="pretraga">
+            <button id="neaktivni" ajax-poziv="da" ajax-rezultat="listSmjestaji" ajax-url="/ModulZaposlenik/Smjestaj/PrikaziSmjestaj?aktivni=ne" class="btn btn-rounded btn-danger btn-sm">Neaktivni</button>
+    </div>
+    <div id="listSmjestaji">
+
+    </div>
+</div>
+@Html.ActionLink("Dodaj", "Dodaj", "Smjestaj", new { area = "ModulZaposlenik" }, new { @class = "btn btn-success", id="dodajBtn" })
+
+<script>
+    $(document).ready(function () {
+        $.get("/ModulZaposlenik/Smjestaj/PrikaziSmjestaj", function (rezultat, status) {
+
+            $("#listSmjestaji").html(rezultat);
+        });
+    });
+</script>

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Uredi";
+    Layout = "_ZaposlenikLayout";
+    string porukaGreska = (string)TempData["IzmjenaProfila_Greska"];
+}
+<style>
+    form {
+        width:40%;
+        margin:0 auto;
+    }
+</style>
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PrviLoginIzmjenaVM
+<center><h2>Izmjena lozinke</h2></center>
+<form asp-action="PrviLoginIzmjena" asp-controller="Profil" method="post">
+    <div class="form-group row">
+        <input asp-for="zaposlenikId" hidden />
+    </div>
+    <div class="form-group row">
+        <label>Nova lozinka: </label>
+        <input asp-for="novaLozinka" class="form-control" />
+        <span asp-validation-for="novaLozinka" class="text-danger"></span>
+    </div>
+    <div class="form-group row">
+        <label>Potvrdi lozinku: </label>
+        <input asp-for="potrvdaLozinke" class="form-control" />
+        <span asp-validation-for="potrvdaLozinke" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Snimi" class="btn btn-success" />
+    </div>
+    @if (porukaGreska != null)
+    {
+        <div class="alert alert-danger">
+            <span>@porukaGreska</span>
+        </div>
+    }
+</form>
+
+

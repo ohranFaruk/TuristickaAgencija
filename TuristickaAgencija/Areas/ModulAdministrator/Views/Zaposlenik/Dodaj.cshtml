@@ -1,0 +1,106 @@
+﻿@using TuristickaAgencija.Helpers
+@{
+    ViewData["Title"] = "Dodaj";
+    Layout = "_AdminLayout";
+}
+@model TuristickaAgencija.Areas.ModulAdministrator.Models.ZaposlenikDodajVM
+
+<form asp-action="SaveAsync" asp-controller="Zaposlenik" method="post" style="width:80%; margin:0 auto" >
+
+    <div id="left" style="width:20%; float:left">
+        <h3>Lični podaci</h3>
+        <hr />
+        <div class="form-group">
+            <label>Ime</label>
+            <input asp-for="ime" class="form-control  " placeholder="Ime" />
+            <span asp-validation-for="@Model.ime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Prezime</label>
+            <input asp-for="prezime" class="form-control " placeholder="Prezime" />
+            <span asp-validation-for="@Model.prezime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Datum rođenja</label>
+            <input asp-for="datumRodjenja" class="form-control " placeholder="Datum rođenja" />
+            <span asp-validation-for="@Model.datumRodjenja" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>JMBG</label>
+            <input asp-for="jmbg" class="form-control " placeholder="JMBG" />
+            <span asp-validation-for="@Model.jmbg" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Spol</label>
+            <select asp-for="spol" asp-items="Model.spolovi" class="form-control "></select>
+            <span asp-validation-for="@Model.spol" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Snimi" class="btn btn-success btn-sm" />
+        @Html.ActionLink("Odustani", "Index", "Zaposlenik", new { area = "ModulAdministrator" }, new { @class = "btn btn-danger btn-sm" })
+
+    </div>
+    <div id="srednji" style="width:20%; float:left; margin-left:2%">
+        <h3>Kontakt podaci</h3>
+        <hr />
+        <div class="form-group">
+            <label>Grad</label>
+            <select asp-for="gradId" asp-items="Model.gradovi" class="form-control "></select>
+            <span asp-validation-for="@Model.gradId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Adresa</label>
+            <input asp-for="adresa" class="form-control " placeholder="Adresa" />
+            <span asp-validation-for="@Model.adresa" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>E-mail</label>
+            <input asp-for="email" class="form-control " placeholder="example.ex@example.emp" />
+            <span asp-validation-for="@Model.email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Telefon</label>
+            <input asp-for="telefon" class="form-control " placeholder="Telefon -> 3369149991" />
+            <span asp-validation-for="@Model.telefon" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Lozinka</label>
+            <input asp-for="lozinka" class="form-control " placeholder="Lozinka" />
+            <span asp-validation-for="@Model.lozinka" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <div id="right" style="float:left; width:20%; margin-left: 2%">
+        <h3>Poslovni podaci</h3>
+        <hr />
+        <div class="form-group">
+            <label>Datum zapošljavanja</label>
+            <input asp-for="datumZaposljavanja" class="form-control " />
+            <span asp-validation-for="@Model.datumZaposljavanja" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Iskustvo (mjeseci)</label>
+            <input asp-for="mjeseciIskustva" class="form-control "/>
+            <span asp-validation-for="@Model.mjeseciIskustva" class="text-danger"></span>
+
+        </div>
+        <div class="form-group">
+            <label>Vodic</label>
+            <input  data-size="mini" data-onstyle="primary"  data-offstyle="danger" data-on="DA" data-off="NE" asp-for="isVodic" data-toggle="toggle" />
+        </div>
+    </div>
+    <div id="last" style="width:30%; float:left; margin-left:2%">
+        <h3>Govorni jezici</h3>
+        <hr />
+        <label>Jezik / Stepen</label>
+        <div class="form-group">
+            @MyHtmlTag.DoubleDropDown("odabraniJezici", "odabraniStepeni", Model.jezici, Model.stepeniJezika, "form-control")
+            @MyHtmlTag.DoubleDropDown("odabraniJezici", "odabraniStepeni", Model.jezici, Model.stepeniJezika, "form-control")
+            @MyHtmlTag.DoubleDropDown("odabraniJezici", "odabraniStepeni", Model.jezici, Model.stepeniJezika, "form-control")
+            @MyHtmlTag.DoubleDropDown("odabraniJezici", "odabraniStepeni", Model.jezici, Model.stepeniJezika, "form-control")
+            @MyHtmlTag.DoubleDropDown("odabraniJezici", "odabraniStepeni", Model.jezici, Model.stepeniJezika, "form-control")
+        </div>
+
+    </div>
+</form>

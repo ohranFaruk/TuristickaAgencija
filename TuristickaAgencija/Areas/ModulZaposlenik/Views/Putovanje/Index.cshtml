@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_ZaposlenikLayout";
+}
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PutovanjeIndexVM
+<style>
+    #frame {
+        width: 100%;
+        height: 85vh;
+    }
+
+    #pretraga {
+        width: 100%;
+        height: 10%;
+    }
+
+    #putovanjaDiv {
+        width: 100%;
+        height: 90%;
+
+    }
+    #dodajBtn {
+        margin-left:5%;
+    }
+    form {
+        padding:1%;
+        margin-left:4%;
+    }
+    #neaktivni {
+        float:right;
+    }
+    
+</style>
+
+<div id="frame">
+    <div id="pretraga">
+        <form ajax-poziv="da" ajax-rezultat="putovanjaDiv" asp-action="PrikaziPutovanja" asp-controller="Putovanje" method="post" class="form-inline">
+            <select asp-for="kontinentId" id="selectKontinent" asp-items="Model.kontinenti" class="form-control input-sm"></select>
+            <select asp-for="drzavaId" id="selectDrzava" asp-items="Model.drzave" class="form-control input-sm"></select>
+            <select asp-for="gradId" id="selectGrad" asp-items="Model.gradovi" class="form-control input-sm"></select>
+            <input type="submit" class="btn btn-info btn-rounded btn-sm" value="Traži" />
+            <button ajax-poziv="da" ajax-rezultat="putovanjaDiv" ajax-url="/ModulZaposlenik/Putovanje/PrikaziPutovanja" class="btn btn-rounded btn-danger btn-sm prikaziSve">Prikaži sve</button>
+            <button id="neaktivni" ajax-poziv="da" ajax-rezultat="putovanjaDiv" ajax-url="/ModulZaposlenik/Putovanje/PrikaziPutovanja?aktivna=ne" class="btn btn-rounded btn-danger btn-sm">Neaktivna</button>
+
+        </form>
+    </div>
+    <div id="putovanjaDiv">
+
+    </div>
+</div>
+@Html.ActionLink("Dodaj", "Dodaj", "Putovanje", new { area = "ModulZaposlenik" }, new { @class = "btn btn-success", id="dodajBtn"})
+
+<script>
+    $(document).ready(function () {
+
+        $.get("/ModulZaposlenik/Putovanje/PrikaziPutovanja", function (rezultat, status) {
+            $("#putovanjaDiv").html(rezultat);
+        });
+    });
+</script>

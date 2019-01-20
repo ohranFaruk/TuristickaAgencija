@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model TuristickaAgencija.Areas.ModulTurist.Models.KomentarVM
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<!-- Website Font style -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+<!-- Google Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+
+<style>
+
+    .dugme2 {
+        position: relative;
+        background-color: #ff0000;
+        border: none;
+        color: white;
+        padding: 10px 17px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin-top: -112%;
+        margin-left: 75%;
+        border-radius: 5px;
+        width: 17%;
+    }
+
+    #glavni {
+        background-color: antiquewhite;
+        margin-top: 2%;
+       
+    }
+    .sadrzaj
+    {
+
+        margin-left:2.5%;
+        padding-top:0.8%;
+    }
+
+   
+</style>
+
+<div id="glavni">
+    @if (Model == null)
+    {
+
+    <div class="sadrzaj">
+        <label style="font-size:18px;">Nema komentara</label>  
+
+    </div>
+    }
+    else
+    {
+        @foreach (var x in Model.redovi)
+        {
+            <div class="sadrzaj">
+                <label style="font-size:18px;">@x.imeTuriste :    </label>  <label class="text-muted">   @x.Ocjena</label><br />
+                <label>"@x.Tekst"-</label>
+
+                <label class="text-muted" style="font-size:12px">@x.DatumKomentara</label><br /><br />
+            </div>
+        }
+
+
+    }
+    <button id="klik" class="dugme2">X Zatvori</button>
+
+
+</div>
+<script>
+
+
+    $("#klik").click(function () {
+        $("#glavni").empty();
+        return false;
+    })
+
+</script>

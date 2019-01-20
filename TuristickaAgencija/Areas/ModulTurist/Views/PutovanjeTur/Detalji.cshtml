@@ -1,0 +1,449 @@
+﻿@using TuristickaAgencijaData
+@using TuristickaAgencija.Data.Models
+@using TuristickaAgencija.Helpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Detalji";
+    int brojac = 1;
+    string url = "/ModulTurist/PutovanjeTur/Detalji?putovanjeId=";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
+
+}
+@model TuristickaAgencija.Areas.ModulTurist.Models.PutovanjeTurDetalji
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Portfolio Item - Start Bootstrap Template</title>
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/lib/bootstrap/dist/css/modern-business.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+
+
+        .demo {
+            cursor: pointer
+        }
+    </style>
+
+    <style type="text/css">
+
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+
+        .img {
+            position: relative;
+            float: left;
+            width: 10px;
+            height: 400px;
+            background-position: 10% 10%;
+            background-repeat: no-repeat;
+            /*background-size: cover;*/
+            border: 8px solid #ddd;
+            border-radius: 1px;
+        }
+
+        .slikica {
+            position: relative;
+            float: left;
+            width: 1px;
+            height: 150px;
+            background-position: 20% 20%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 220px;
+            width: 350px;
+            margin-top: 8px;
+            border: 8px solid #ddd;
+            border-radius: 1px;
+        }
+
+        .dugme {
+            -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+            -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+            box-shadow: 0px 1px 0px 0px #f0f7fa;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+            background: -moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: -webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: -o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
+            background-color: #33bdef;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #057fd0;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px -1px 0px #5b6178;
+            margin-top: 20%;
+        }
+
+            .dugme:hover {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+                background: -moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
+                background-color: #019ad2;
+            }
+
+            .dugme:active {
+                position: relative;
+                top: 1px;
+            }
+    </style>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script src="~/MyScript.js"></script>
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark  fixed-top bg-dark ">
+        <div class="container">
+
+            <p class="navbar-brand" style="height:12px">WT Travel agency</p>
+           
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ModulTurist/turisthome/index">Home</a>
+                    </li>
+
+
+
+
+                    @if (korisnik == null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulTurist/TuristHome/Registracija">Registracija</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/controllers/login/loginpage?url=@url">Login</a>
+                </li>
+}
+
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ModulTurist/PutovanjeTur/PrikazBezPonuda">Putovanja</a>
+                    </li>
+
+
+                    @if (korisnik == null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/modulturist/turisthome/prijava">Završena putovanja</a>
+                </li>
+}
+
+
+
+                    @if (korisnik != null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulTurist/Rezervacija/PrikazRezervacija?korisnikId=@korisnik.KorisnikId">Rezervacije</a>
+                </li>
+
+
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/controllers/login/odjava?url=@url+@Model.putovanjeId">Odjava</a>
+                </li>
+
+
+
+}
+
+
+
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <h1 class="my-4">
+          @Model.lokacija<br />
+            <small class="text-muted" style="font-size:15px">       @Model.datumPolaska-@Model.datumPovratka</small>
+        </h1>
+       
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="w3-content">
+                    @*<img class="img" src="https://cdn.pixabay.com/photo/2015/03/30/20/33/heart-700141_960_720.jpg" onclick="currentDiv(2)" style="width:100%">
+
+        <img class="img" src="https://www.w3schools.com/w3css/img_mountains_wide.jpg" style="width:100%">
+
+
+        <img class="img" src="https://images.pexels.com/photos/34950/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width:100%">
+
+
+        <img class="img" src="https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width:100%">*@
+
+
+                    @foreach (var x in Model.redovi)
+    {
+                <img class="img" src="@x.slika" onclick="currentDiv(2)" style="width:100%">
+
+} <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)" style="position:relative; margin-left:8px; margin-top:-380px; opacity: 0.5;
+    filter: alpha(opacity=50);  border-radius: 15px;">
+                        &#10094;
+                    </button>
+
+                    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)" style="position:relative; margin-left:628px; margin-top:-380px; opacity: 0.5;
+    filter: alpha(opacity=50);  border-radius: 15px;">
+                        &#10095;
+                    </button>
+
+                    <br />
+                    <button style="margin-top:10px;" ajax-poziv="da" class="dugme" ajax-rezultat="komentari" ajax-url="/modulturist/komentari/index?putovanjeId=@Model.putovanjeId">Komentari</button>
+
+                    <div id="komentari"></div>
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="col-md-4">
+                <h3 class="my-3">Opis putovanja : </h3>
+                <p>@Model.opis</p>
+                <h3 class="my-3">Hoteli : </h3>
+                <ul>
+                    @foreach (var x in Model.hoteli)
+    {
+                    <li>
+                        <label>@x.nazivHotela</label>
+                        <label class="text-muted">(@x.cijenaNoc KM )</label>
+
+
+
+                    </li>
+              
+}
+                </ul>
+                <h3 class="my-3">Već od : </h3>
+                <h3>@Model.cijena KM !!</h3>
+                @*<h1>@Model.cijenaBezSmjestaja</h1>*@
+
+
+
+
+
+                @if (korisnik == null)
+    {
+            @*@Html.ActionLink("Kreiraj rezervaciju", "Loginpage", "Login", new { url = (url + Model.putovanjeId) }, new { @class = "dugme" })*@
+         
+
+            <button onclick="location.href='/controllers/login/loginpage?url=@(url+Model.putovanjeId)'" type="button" class="dugme"> Kreiraj rezervaciju</button>
+
+
+
+}
+else
+{
+            <button class="dugme" ajax-poziv="da" ajax-rezultat="ajax" ajax-url="/modulturist/rezervacija/index?putovanjeId=@Model.putovanjeId"> Kreiraj rezervaciju</button>
+
+}
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <!-- Related Projects Row -->
+        <h3 class="my-4">Slike :</h3>
+
+        <div class="row">
+
+            <div class="w3-row-padding w3-section">
+                @*<div class="w3-col s4">
+                        <img class="slikica" src="https://cdn.pixabay.com/photo/2015/03/30/20/33/heart-700141_960_720.jpg" style="width:100%" onclick="currentDiv(1)">
+                    </div>
+                    <div class="w3-col s4">
+                        <img class="slikica" src="https://www.w3schools.com/w3css/img_mountains_wide.jpg" style="width:100%" onclick="currentDiv(2)">
+                    </div>
+
+
+                    <div class="w3-col s4">
+                        <img class="slikica" src="https://images.pexels.com/photos/34950/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width:100%" onclick="currentDiv(3)">
+                    </div>
+
+                    <div class="w3-col s4">
+                        <img class="slikica" src="https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style="width:100%" onclick="currentDiv(4)">
+                    </div>*@
+
+
+                @foreach (var x in Model.redovi)
+                {
+                    <div class="w3-col s4">
+
+                        <img class="slikica" src="@x.slika" onclick="currentDiv(@(brojac++))">
+                     
+                    </div>
+
+
+                }
+
+
+            </div>
+
+
+
+        </div>
+
+
+        <!-- /.row -->
+
+        <div id="ajax">
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; World Tour 2018</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+    <script>
+
+
+        function validacija() {
+
+            alert("nesto");
+            return false;
+        }
+
+
+        var slideIndex = 1;
+        showDivs(slideIndex);
+
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+
+        function currentDiv(n) {
+            showDivs(slideIndex = n);
+        }
+
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("img");
+            var dots = document.getElementsByClassName("demo");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace("slikica", "");
+            }
+            x[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " slikica";
+        }
+
+
+                //$(document).ready(function () {
+
+                //    $.get("/rezervacija/index", function (data, status) {
+
+                //        $("#ajax").html(data);
+
+                //    });
+                //});
+
+
+      
+    </script>
+
+
+
+
+
+</body>
+</html>

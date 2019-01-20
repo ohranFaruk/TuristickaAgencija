@@ -1,0 +1,284 @@
+﻿@using TuristickaAgencijaData
+@using TuristickaAgencija.Data.Models
+@using TuristickaAgencija.Helpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = null;
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
+
+}
+
+@model TuristickaAgencija.Areas.ModulTurist.Models.RezervacijaDodaj
+<head>
+    <script src="~/MyScript.js"></script>
+
+
+
+
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    <script src="~/lib/bootstrap/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+
+
+
+
+
+
+
+</head>
+<style type="text/css">
+
+    .formica {
+        background-color:antiquewhite;
+        border:5px solid rgb(188,202,228);
+        border-radius:4px;
+        margin-bottom:25px;
+
+
+    }
+    input
+    {
+        margin-left:40%;
+       
+        width:60%;
+        height:50px;
+    }
+    span
+    {
+        margin-left:20%;
+        padding-top:2%;
+    }
+    textarea {
+        margin-left: 40%;
+    }
+
+    .napomena {
+        display: inline-block;
+        float: right;
+        width: 15%;
+        margin-right: 10%;
+        font-size: 130%;
+    }
+
+    .check {
+        margin-left: 35%;
+        width:80%;
+        display:inline-block;
+        height:35px;
+        margin-top:-22%;
+      
+
+    }
+
+
+    .dugme2 {
+        position:relative;
+        background-color: #ff0000;
+        border: none;
+        color: white;
+        padding: 10px 17px;
+        text-align: center;
+        text-decoration: none;
+       
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin-top: -112%;
+        margin-left: 75%;
+        border-radius:5px;
+        width:17%;
+    }
+
+</style>
+
+<body>
+
+
+
+    <br />
+    <br />
+    <br />
+    <script>
+
+        window.scrollBy(0, 800);
+    </script>
+
+
+    <form action="/modulturist/rezervacija/snimi" method="post" class="formica">
+
+        <input type="hidden" value="@Model.putovanjeId" name="putovanjeId" id="putovanjeId" />
+        <input type="hidden" value="@Model.ukupnaCijena" name="ukupnaCijena" id="ukupnaCijena" />
+        <input type="hidden" value="@Model.cijenaBezSmjestaja" name="cijenaBezSmjestaja" id="cijenaBezSmjestaja" />
+        <input type="hidden" value="@Model.trajanjePutovanja" name="trajanjePutovanja" id="trajanjePutovanja" />
+
+        <br />
+
+        <p class="napomena">Bitno je da unesete tačne podatke sa putnih isprava !</p>
+
+        <div class="form-group col-md-6">
+
+            <input asp-for="imePutnika" class="form-control" placeholder="Ime*">
+            <span asp-validation-for="imePutnika" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+
+            <input asp-for="prezimePutnika" class="form-control" placeholder="Prezime*">
+            <span asp-validation-for="prezimePutnika" class="text-danger"></span>
+
+        </div>
+
+
+        <div class="form-group col-md-6">
+
+            <input asp-for="kontaktTelefon" class="form-control" placeholder="Telefon*">
+            <span asp-validation-for="kontaktTelefon" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+
+            <input asp-for="email" class="form-control" placeholder="Email*">
+            <span asp-validation-for="email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-6">
+
+            <input asp-for="datumRodjenjaPutnika" class="form-control" placeholder="datumrodjenja*">
+            <span asp-validation-for="datumRodjenjaPutnika" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group col-md-6">
+
+
+            <textarea asp-for="zeljeIprimjedbe" cols="56" rows="4" placeholder="Želje i primjedbe">
+
+            </textarea>
+
+        </div>
+        <div class="form-group col-md-6">
+
+            <label style="margin-left:40%">Uključen smještaj : </label>
+            <input type="checkbox" id="cek"  class="check" name="cekbox" onchange="cekiranje()"  checked/>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label style="margin-left:40%">Hoteli : </label>
+            <select asp-for="cijena" asp-items="Model.putovanjeSmjestaji" id="drop" class="form-control" style=" margin-left:40%; width:100%;height:40px" onchange="cijene()"></select>
+            <span asp-validation-for="@Model.cijena" class="text-danger"></span>
+
+
+        </div>
+
+            <input type="hidden" value="@Model.ukupnaCijena" name="cijenaSve" id="cijenaSve" />
+
+
+
+
+
+            <input type="submit" class="dugme2" id="sabmit" value=""  />
+        <br />
+        <br />
+    </form>
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+<script>
+
+    document.getElementById("sabmit").value = "Ukupno : " + @Model.ukupnaCijena+" KM";
+
+
+    
+
+    
+    function cijene() {
+        var cijenaNoc = document.getElementById("drop").value;
+        var trajanje = document.getElementById("trajanjePutovanja").value;
+
+        //alert(trajanje);
+        //alert(cijenaNoc);
+        //alert(document.getElementById("cijenaBezSmjestaja").value);
+
+        var sve = trajanje * cijenaNoc + parseFloat(document.getElementById("cijenaBezSmjestaja").value);
+
+
+        //alert(sve);
+        document.getElementById("sabmit").value = "Ukupno : " + sve+" KM";
+
+    }
+
+    function cekiranje() {
+
+
+        var checkBox = document.getElementById("cek");
+
+        if (checkBox.checked) {
+
+            var cijenaNoc = document.getElementById("drop").value;
+            var trajanje = document.getElementById("trajanjePutovanja").value;
+
+           
+
+            var sve = trajanje * cijenaNoc + parseFloat(document.getElementById("cijenaBezSmjestaja").value);
+
+
+          
+            document.getElementById("sabmit").value = "Ukupno : " + sve + " KM";
+
+
+        } else {
+                      document.getElementById("sabmit").value = "Ukupno : " + @Model.cijenaBezSmjestaja + " KM";
+
+        }
+
+    }
+
+   
+
+        
+    
+
+   
+
+</script>

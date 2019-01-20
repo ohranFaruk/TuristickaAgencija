@@ -1,0 +1,192 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TuristickaAgencija.Areas.ModulZaposlenik.Models.PutovanjePrikaziVM
+
+<style>
+    #putovanjaTable_wrapper {
+        padding-bottom: 7px;
+    }
+
+    td {
+        background-color: rgb(243,243,244);
+        width:25%;
+    }
+
+    .divina {
+        width: 100%;
+        height: 100%;
+        color: white;
+        font-family: "Arial Black", Gadget, sans-serif;
+    }
+
+    .trajanje {
+        transition: 1.5s;
+        width: 50%;
+        height: 20%;
+        background-color: rgba(0,0,0,0.7);
+        filter: brightness(0.8);
+        padding: 1%;
+        float: left;
+        line-height: 4vh;
+        font-size: 1.5vh;
+    }
+
+    .cijena {
+        transition: 1.5s;
+        width: 50%;
+        padding: 1%;
+        height: 20%;
+        line-height: 4vh;
+        font-size: 1.5vh;
+        filter: brightness(0.8);
+        float: left;
+        background-color: rgba(0,0,0,0.7);
+        text-align: right;
+        padding-right: 2%;
+    }
+
+    img {
+        height: 90%;
+        width: 20%;
+    }
+
+    .lokacija {
+        transition: 1.5s;
+        width: 100%;
+        height: 20%;
+        padding: 1%;
+        font-size: 1.6vh;
+        background-color: rgba(0,0,0,0.7);
+        line-height: 3.6vh;
+        text-align: center;
+        filter: brightness(0.8);
+        float: left;
+    }
+
+    #putovanja {
+        width: 90%;
+        height: 70vh;
+        margin: 0 auto;
+    }
+
+    .divina:hover .lokacija {
+        background-color: rgb(47,64,80);
+        color: white;
+        transition: 1.5s;
+        filter: brightness(0.9);
+    }
+
+    .divina:hover .cijena {
+        background-color: rgb(47,64,80);
+        filter: brightness(0.9);
+        color: white;
+        transition: 1.5s;
+    }
+
+    .divina:hover .trajanje {
+        background-color: rgb(47,64,80);
+        filter: brightness(0.9);
+        color: white;
+        transition: 1.5s;
+    }
+
+    .slika {
+        width: 100%;
+        height: 25vh;
+        float: left;
+    }
+
+        .slika img {
+            width: 100%;
+            height: 100%;
+            filter: grayscale(100%);
+            transition: 1.5s;
+        }
+
+    .divina:hover .slika img {
+        filter: grayscale(0);
+        transition: 1.5s;
+    }
+</style>
+
+@{
+
+    int brojacJ = 0;
+    int brojacJManje = 4;
+}
+<div id="putovanja">
+    <table id="putovanjaTable">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Math.Ceiling((double)Model.divs.Count / 4); i++)
+            {
+                if (i > 0)
+                {
+                    brojacJManje *= 2;
+                    brojacJ += 1;
+                }
+                <tr>
+                    @for (int j = brojacJ; j < brojacJManje; j++)
+                    {
+                        @if (j < Model.divs.Count)
+                        {
+                            <td style="padding: 0.05%;">
+                                <a href="/ModulZaposlenik/Putovanje/Pregled?putovanjeId=@Model.divs[j].putovanjeId">
+                                    <div class="divina">
+                                        <div class="trajanje">
+                                            <img src="~/images/trajanje.png" />
+                                            <i>@Model.divs[j].trajanje dana</i>
+                                        </div>
+                                        <div class="cijena">
+                                            <img src="~/images/price.png" />
+                                            <i>@Model.divs[j].cijena</i>
+                                        </div>
+                                        <div class="slika">
+                                            <img src="@Model.divs[j].slika" alt="Greška prilikom učitavanje slike" />
+                                        </div>
+                                        <div class="lokacija">
+                                            <i>@Model.divs[j].lokacija</i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="padding: 0.05%;"></td>
+                        }
+
+                        brojacJ = j;
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $("#putovanjaTable").DataTable(
+            {
+                "pageLength":2,
+                "bLengthChange": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+                },
+                "order": [[0, "Asc"]],
+                "order": false,
+                "filter": false,
+                "info":false
+
+            });
+
+    });
+</script>

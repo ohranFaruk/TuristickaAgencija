@@ -1,0 +1,374 @@
+﻿@using TuristickaAgencijaData
+@using TuristickaAgencija.Data.Models
+@using TuristickaAgencija.Helpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Prikaz";
+    string url = "/modulturist/putovanjetur/prikaz?ponudaId=";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+    int brojac = 0;
+
+}
+@model TuristickaAgencija.Areas.ModulTurist.Models.PrikazZavrsenihVM
+
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/lib/bootstrap/dist/css/modern-business.css" rel="stylesheet">
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <script src="~/MyScript.js"></script>
+
+
+
+
+    <style>
+
+
+
+
+        .footer {
+         
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
+
+
+        img {
+            position: relative;
+            float: left;
+            width: 300px;
+            height: 300px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: red;
+        }
+
+        .btn {
+            -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+            -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+            box-shadow: 0px 1px 0px 0px #f0f7fa;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+            background: -moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: -webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: -o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
+            background-color: #33bdef;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #057fd0;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px -1px 0px #5b6178;
+            margin-top: 100%;
+        }
+
+            .btn:hover {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+                background: -moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
+                background-color: #019ad2;
+            }
+
+            .btn:active {
+                position: relative;
+                top: 1px;
+            }
+
+
+        .media-body {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            margin-left: 4%;
+        }
+
+
+
+        input[type=number],textarea {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            outline: none;
+            padding: 3px 0px 3px 3px;
+            margin: 5px 1px 3px 0px;
+            border: 1px solid #DDDDDD;
+        }
+
+            input[type=number]:focus,textarea:focus {
+                box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+                padding: 3px 0px 3px 3px;
+                margin: 5px 1px 3px 0px;
+                border: 1px solid rgba(81, 203, 238, 1);
+            }
+
+
+
+        .dugme {
+            -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+            -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+            box-shadow: 0px 1px 0px 0px #f0f7fa;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+            background: -moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: -webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: -o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+            background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
+            background-color: #33bdef;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #057fd0;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 7px 8px;
+            text-decoration: none;
+            text-shadow: 0px -1px 0px #5b6178;
+          
+        }
+
+            .dugme:hover {
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+                background: -moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: -ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+                background: linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
+                background-color: #019ad2;
+            }
+
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+
+            <p class="navbar-brand" style="height:12px">WT Travel agency</p>
+
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ModulTurist/turisthome/index">Home</a>
+                    </li>
+
+
+
+
+
+                    @if (korisnik == null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulTurist/TuristHome/Registracija">Registracija</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/controllers/login/loginpage?url=@url">Login</a>
+                </li>
+}
+
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ModulTurist/PonudaTur/prikaz">Ponude</a>
+                    </li>
+
+
+
+                    @if (korisnik != null)
+    {
+                <li class="nav-item">
+                    <a class="nav-link" href="/ModulTurist/Rezervacija/PrikazRezervacija?korisnikId=@korisnik.KorisnikId">Rezervacije</a>
+                </li>
+
+
+
+
+                <li class="nav-item">
+
+                    <a class="nav-link" href="/controllers/login/odjava?url=@url">Odjava</a>
+                </li>
+
+
+
+}
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <br>
+        <hr>
+
+        <div class="card">
+            <table class="table table-hover shopping-cart-wrap">
+                <thead class="text-muted">
+                    <tr>
+                        <th scope="col" style="padding-left:30%;">Destinacija</th>
+
+                        <th scope="col" width="320" style="margin-right:15%;">Polazak -  Povratak </th>
+
+                        <th scope="col" width="200" class="text-right" style="padding-right:12%;">Detalji</th>
+                    </tr>
+                </thead>
+
+
+
+
+                <tbody>
+
+                    @foreach (var x in Model.redovi)
+                    {
+                        <tr>
+                            <td style="width:37%;">
+                                <figure class="media">
+
+                                    <div class="img">
+                                        <img src="@x.slika" class="img-thumbnail img-sm">
+
+                                    </div>
+
+                                    <div id="komentar">
+
+
+                                    </div>
+
+                                    <figcaption class="media-body">
+                                        <h5 class="title text-truncate">@x.lokacija </h5>
+                                        <h6 class="text-muted">@x.ukupnaCijena KM </h6>
+                                        <h6 class="text-muted"> @x.trajanje dana </h6>
+
+                                        @*<h6 class="text-muted">@x.cijenaBezSmjestaja bezSmjestaja</h6>*@
+
+
+                                    </figcaption>
+                                </figure>
+                            </td>
+
+                            <td style=" width:22%;">
+                                <div class="price-wrap">
+
+                                    <small class="text-muted">   @x.datumPolaska    -    @x.datumPovratka</small>
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                            <td class="text-desno" style=" width:30%;">
+
+                                @*<a href="/ModulTurist/PutovanjeTur/Detalji?putovanjeId=@x.putovanjeId" class="btn">  Prikazi Detalje</a>*@
+                                @*<button class="btn" ajax-poziv="da" ajax-rezultat="komentar" ajax-url="/modulturist/putovanjetur/KreiranjeRecenzije">Komentiraj</button>*@
+
+                                @*<a href="/modulturist/putovanjetur/KreiranjeRecenzije">komentiraj</a>*@
+
+                                <div>
+
+
+                                    <form action="/modulturist/putovanjetur/snimiKomentar" method="post">
+
+
+                                        <input type="hidden" name="rezervacijaId" value="@x.rezervacijaId" />
+                                        <input type="hidden" name="ime" value="@Model.ime" />
+
+                                        <input type="hidden" name="prezime" value="@Model.prezime" />
+
+                                        <label style="font-size:18px;">Komentar :    </label>
+
+                                        <textarea class="form-control" name="komentar"></textarea>
+
+                                        <label style="font-size:18px;">Ocjena :    </label>
+
+                                        <input type="number" value="5" class="form-control" min="0" max="5" name="ocjena" style="width:50%;" />
+
+                                        <input type="submit" value="snimi" class="dugme" style="width:30%;  margin-top:2%; margin-left:65%;" />
+
+
+                                    </form>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div> <!-- card.// -->
+    </div>
+
+
+    <div class="footer">
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; World Tour 2018</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+    </div>
+    <!--container end.//-->
+    @*<article class="bg-secondary mb-3">
+            <div class="card-body text-center">
+                <h3 class="text-white mt-3">Bootstrap 4 UI KIT</h3>
+                <p class="h5 text-white">
+                    Components and templates  <br> for Ecommerce, marketplace, booking websites
+                    and product landing pages
+                </p>   <br>
+                <p>
+                    <a class="btn btn-warning" target="_blank" href="http://bootstrap-ecommerce.com/">
+                        Bootstrap-ecommerce.com
+                        <i class="fa fa-window-restore "></i>
+                    </a>
+                </p>
+            </div>
+            <br><br>
+        </article>*@
+</body>
